@@ -23,15 +23,15 @@ pip install -r requirements.txt
 ## Running the tests	
 Run `test_create_payment` test:
 ```shell
-pytest tests.py::test_create_payment
+pytest tests/test_payment_requests.py::test_create_payment
 ```
 
 Run `create_multiple_payments` test:
 ```shell
-pytest tests.py::test_create_multiple_payments
+pytest tests/test_payment_requests.py::test_create_multiple_payments
 ```
 
 Or run both tests:
 ```shell
-pytest tests.py
+pytest tests
 ```
