@@ -1,6 +1,6 @@
 import pytest
 
-from payment_requests import create_new_payment, get_all_payments, delete_all_payments
+from payment_requests import create_new_payment, get_payment, get_all_payments, delete_all_payments
 
 
 @pytest.fixture(scope="function", autouse=True)
@@ -19,9 +19,9 @@ def test_create_payment():
     """
     payment, status_code = create_new_payment(amount=100, currency="USD", name="Test Consumer")
 
-    # Payment was successful and can be found in all payments
+    # Verify that payment creation was successful
     assert status_code == 201, f"Expected status code 201, but got {status_code}"
-    assert payment["id"] in map(lambda x: x["id"], get_all_payments()[0]), "Payment not found in all payments"
+    assert get_payment(payment["id"])[1] == 200, "Payment not found"
 
 
 def test_create_multiple_payments():

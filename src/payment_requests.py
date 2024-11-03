@@ -26,6 +26,26 @@ def create_new_payment(amount: float, currency: str, name: str) -> tuple[dict, i
     response = requests.post(url, headers=headers, json=data)
     return response.json(), response.status_code
 
+def get_payment(payment_id: int) -> tuple[dict, int]:
+    """Fetches a payment entry by ID.
+
+    Args:
+        payment_id (int): The ID of the payment to retrieve.
+
+    Returns:
+        tuple[dict, int]: A tuple containing the payment as a dict and the status code.
+    """
+    url = f"http://localhost:8080/payments/{payment_id}"
+    headers = {
+        "Authorization": "Basic am9objpqb2hu"
+    }
+
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        return response.json(), response.status_code
+    else:
+        return {}, response.status_code
+
 def get_all_payments() -> tuple[list, int]:
     """Fetches all payment entries.
 
@@ -71,8 +91,8 @@ def delete_all_payments() -> None:
         delete_payment(p["id"])
 
 if __name__ == '__main__':
+    delete_all_payments()
     payment, _ = create_new_payment(amount=11.13, currency="USD", name="Test consumer")
     print(payment)
-    print(get_all_payments())
+    print(get_payment(payment["id"]))
     delete_payment(payment["id"])
-
