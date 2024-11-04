@@ -35,3 +35,15 @@ Or run both tests:
 ```shell
 pytest tests
 ```
+
+## Running the tests using Docker (experimental)
+Rather than running the tests using a local Python installation, you can also run the tests using a test container.
+First, build the Docker image:
+```shell
+docker build -t payments-api-tests .
+```
+
+Then, to run the tests inside a container:
+```shell
+docker run payments-api-tests
+```
